@@ -231,6 +231,20 @@ h2 = h1 @ w2:
 
 Total: **6** (# data points) (# parameters) FLOPs
 
+## Checkpoint
+
+Activation checkpointing:
+
+- Forward pass: keep only activations at subset of layers
+- Backward pass: recompute the missing activations from the last checkpoint
+
+```python
+# Store all activations:    x g1 h1 g2 h2 g3 h3 g4 h4
+# Activation checkpointing: x    h1    h2    h3    h4
+```
+
+
+
 ## Optimizer
 
 > https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf
@@ -242,11 +256,7 @@ Define the AdaGrad optimizer
 - RMSProp = AdaGrad + exponentially averaging of grad^2
 - Adam = RMSProp + momentum
 
-
-
-
-
-### operations
+## operations
 
 PyTorch tensors are **<u>pointers</u>** into allocated memory.
 
@@ -284,7 +294,7 @@ index = r * x.stride(0) + c * x.stride(1)
 assert index == 6
 ```
 
-#### View
+### View
 
 Many operations simply provide a different view of the tensor.
 
@@ -329,7 +339,7 @@ assert not same_storage(x, y)
 
 - 这会进行内存的拷贝与重新排列
 
-#### matmul
+### matmul
 
 ```python
 x = torch.ones(16, 32)
